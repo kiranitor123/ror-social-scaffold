@@ -3,4 +3,9 @@
   <span class="profile-link">
     <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
   </span>
+  <% unless owner(user) %>
+    <i class="fas fa-hand-holding-heart"></i>
+  <% else %>
+    Owner
+  <% end %>
 </li>
