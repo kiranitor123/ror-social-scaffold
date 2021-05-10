@@ -4,10 +4,12 @@
    <div>
         <span>Pending friend request(s): <%=@user.friend_requests.count %></span>
         <%@user.friend_requests.each do |friendship|%>
-        <p>
+
+        <div class="friend-lineup">
             <%=friendship.name%>:
-            <%= accept_friendship(friendship)%>  <%= reject_friendship(friendship)%>
-        </p>
+            <button type="button" class="bttn-accept"><%= accept_friendship(friendship)%></button> 
+            <button type="button" class="bttn-reject"><%= reject_friendship(friendship)%></button>
+        </div>
         <% end %>
     </div>
   <% end %>
