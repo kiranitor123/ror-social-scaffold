@@ -1,27 +1,16 @@
 <section class="user-section">
-  <h2><%= "Name: #{@user.name}" %>
-    <% unless owner(@user) %>
-      <% if @user.friend?(@user)%>
-        <i class="fas fa-heart"></i>
-      <%else%>
-      
-      <%end%>
-      <% if find_friend_request(@user).nil?%>
-        <i class="fas fa-hand-holding-heart"></i>
-        <%= button_to "Invite", friendships_path(friend_id: @user.id), class: "" %>
-      <% else %>
-        <% if approved(@user)%>
-          <i class="fas fa-heart"></i>
-        <% else %>
-          <% if cancel(@user)%>
-            <i class="fas fa-heart-broken"></i>
-          <% else %>
-            <i class="fas fa-heartbeat"></i>
-          <%end%>
+  <h2><%= "Name: #{@user.name}" %> <span><%= get_is_my_friend_or_request(@user) %></span></h2>
+  <% if owner(@user)%>
+   <div>
+        <span>Pending friend request(s): <%=@user.friend_requests.count %></span>
+        <%@user.friend_requests.each do |friendship|%>
+        <p>
+            <%=friendship.name%>:
+            <%= accept_friendship(friendship)%>  <%= reject_friendship(friendship)%>
+        </p>
         <% end %>
-      <% end %>
-    <% end %>
-  </h2>
+    </div>
+  <% end %>
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">
