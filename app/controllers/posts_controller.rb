@@ -20,8 +20,7 @@ class PostsController < ApplicationController
   private
 
   def timeline_posts
-    @timeline_posts ||= current_user.posts.ordered_by_most_recent
-    
+    @timeline_posts ||= current_user.posts.ordered_by_most_recent   
     current_user.friends.each do |user|
       @timeline_posts += user.posts.ordered_by_most_recent
     end
