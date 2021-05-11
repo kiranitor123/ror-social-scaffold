@@ -4,9 +4,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4'
+gem 'rails', '>= 5.2.4'
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.2', '>= 1.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
@@ -56,6 +56,18 @@ group :development do
   gem 'rubocop'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  # The RSpec testing framework
+  gem 'database_cleaner_2', '~> 2.1'
+  gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
+  gem 'shoulda-matchers'
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 3.26'
+  gem 'selenium-webdriver'
+  # Easy installation and use of web drivers to run system tests with browsers
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

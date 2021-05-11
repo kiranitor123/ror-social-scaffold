@@ -3,4 +3,5 @@
   <span class="profile-link">
     <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
   </span>
+    <%= get_is_my_friend_or_request(user) %>
 </li>
