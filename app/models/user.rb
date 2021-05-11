@@ -28,13 +28,13 @@ class User < ApplicationRecord
   end
 
   def confirm_friend(user)
-    friendship = friend_requests.find { |friendship| friendship.user == user }
+    friendship = friend_requests.find { |friend| friend.user == user }
     friendship.confirmed = true
     friendship.save
   end
 
   def reject_friend(user)
-    friendship = friend_requests.find { |friendship| friendship.user == user }
+    friendship = friend_requests.find { |f| f.user == user }
     friendship.destroy
   end
 
