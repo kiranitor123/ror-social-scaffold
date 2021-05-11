@@ -23,8 +23,8 @@ module UserHelper
     actual_user = User.find_by(id: params[:id])
     return unless current_user == actual_user
 
-    link_to('Accept', user_friendship_path(friendship.user,friendship.id), method: :put, class: 'tag-color')
- end
+    link_to('Accept', user_friendship_path(friendship.user, friendship.id), method: :put, class: 'tag-color')
+  end
 
   def reject_friendship(friendship)
     actual_user = User.find_by(id: params[:id])
