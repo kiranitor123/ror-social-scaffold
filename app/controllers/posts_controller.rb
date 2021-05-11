@@ -25,7 +25,7 @@ class PostsController < ApplicationController
       @timeline_posts += user.posts.ordered_by_most_recent
     end
 
-    @timeline_posts.sort_by! { |post| -post.created_at.to_i }
+    @timeline_posts.sort_by { |post| -post.created_at.to_i }
     @timeline_posts.compact
   end
 

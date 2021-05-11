@@ -10,12 +10,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  has_many :friendships
-  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :friendships, dependent: :destroy
 
   def friends
     friends_array = friendships.map { |friendship| friendship.friend if friendship.confirmed }
-    friends_array += inverse_friendships.map { |friendship| friendship.user if friendship.confirmed }
     friends_array.compact
   end
 
@@ -26,21 +24,30 @@ class User < ApplicationRecord
 
   # Users who have requested to be friends
   def friend_requests
-    inverse_friendships.map { |friendship| friendship.user unless friendship.confirmed }.compact
+    Friendship.where(friend_id: id, confirmed: false)
   end
 
   def confirm_friend(user)
-    friendship = inverse_friendships.find { |my_friendship| my_friendship.user == user }
+    friendship = friend_requests.find { |friendship | friendship.user == user }
     friendship.confirmed = true
     friendship.save
   end
 
   def reject_friend(user)
-    friendship = inverse_friendships.find { |my_friendship| my_friendship.user == user }
+    friendship = friend_requests.find { |friendship | friendship.user == user }
     friendship.destroy
   end
 
   def friend?(user)
     friends.include?(user)
   end
+
+  def pending_friendship(user)
+    friend_requests.find { |friendship| friendship if friendship.user == user }
+  end
+
+  def pending_friendship?(user)
+    !pending_friendship(user).nil?
+  end
+
 end
